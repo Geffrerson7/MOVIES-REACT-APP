@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import "./home.css"
 import "react-responsive-carousel/lib/styles/carousel.min.css"; 
 import { Carousel } from 'react-responsive-carousel';
+import MoviesList from '../../components/moviesList/moviesList';
 
 
 const Home = () => {
@@ -46,7 +47,9 @@ const Home = () => {
           ))
          }
          </Carousel>
+         <MoviesList />
       </div>
+      
     </>
   )
 }
