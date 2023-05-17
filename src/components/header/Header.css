@@ -31,3 +31,13 @@ a > span:hover {
 .user__avatar {
     font-size: 2rem;
 }
+
+.header__links {
+    display: flex;
+    align-items: center; /* Alinea verticalmente los elementos */
+  }
+  
+  .header__links > * {
+    margin-right: 10px; /* Espacio entre los enlaces */
+  }
+  
