@@ -1,11 +1,19 @@
 import React, { useEffect, useState } from "react";
 import "./MovieDetail.css";
 import { useParams } from "react-router-dom";
-import Header from "../../components/header/Header";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import refreshToken from "../../services/RefreshToken";
 
 const MovieDetail = () => {
   const [currentMovieDetail, setMovie] = useState();
   const { id } = useParams();
+  const userData = JSON.parse(localStorage.getItem("userData"));
+  const authTokens = JSON.parse(localStorage.getItem("authTokens"));
+  const [accessToken, setAccessToken] = useState(authTokens.access);
+  const today = new Date().toISOString().replace("T", " ").slice(0, 19);
+  const navigate = useNavigate();
+  const MOVIE_BASE_URL = "http://127.0.0.1:8000/movie/";
 
   useEffect(() => {
     getData();
@@ -20,6 +28,68 @@ const MovieDetail = () => {
     )
       .then((res) => res.json())
       .then((data) => setMovie(data));
+  };
+
+  console.log(currentMovieDetail)
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (userData.expirated_date === today) {
+      const newAccessToken = await refreshToken(authTokens.refresh);
+      setAccessToken(newAccessToken);
+    }
+    
+    try {
+      const response = await axios.post(
+        MOVIE_BASE_URL,
+        {
+            adult: currentMovieDetail.adult,
+            backdrop_path: currentMovieDetail.backdrop_path,
+            genres: currentMovieDetail.genres,
+            homepage: currentMovieDetail.homepage,
+            imdb_id: currentMovieDetail.imdb_id,
+            movie_id: currentMovieDetail.id,
+            original_language: currentMovieDetail.original_language,
+            original_title: currentMovieDetail.original_title,
+            overview: currentMovieDetail.overview,
+            popularity: currentMovieDetail.popularity,
+            poster_path: currentMovieDetail.poster_path,
+            production_companies:currentMovieDetail.production_companies,
+            runtime:currentMovieDetail.runtime,
+            release_date: currentMovieDetail.release_date,
+            tagline: currentMovieDetail.tagline,
+            title: currentMovieDetail.title,
+            video: currentMovieDetail.video,
+            vote_average: currentMovieDetail.vote_average,
+            vote_count: currentMovieDetail.vote_count,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            Authorization: "Bearer " + accessToken,
+          },
+        }
+      );
+
+      if (response.status === 201) {
+        Swal.fire(
+          "Saved!",
+          "The movie was saved successfully.",
+          "success"
+        ).then((result) => {
+          if (result.isConfirmed) {
+            navigate("/");
+          }
+        });
+      }
+    } catch (error) {
+        console.log(error)
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "An error occurred!",
+      });
+    }
   };
 
   return (
@@ -117,6 +187,11 @@ const MovieDetail = () => {
               </p>
             </a>
           )}
+        </div>
+        <div className="mb-16">
+            <form onSubmit={handleSubmit}>
+                <button className="hover:bg-cyan-600 bg-cyan-300 text-black rounded-lg px-4 py-2" type="submit">Save</button>
+            </form>
         </div>
         <div className="movie__heading">Production companies</div>
         <div className="movie__production">
