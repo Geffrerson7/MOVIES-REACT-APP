@@ -4,7 +4,6 @@ import "./home.css"
 import "react-responsive-carousel/lib/styles/carousel.min.css"; 
 import { Carousel } from 'react-responsive-carousel';
 import MoviesList from '../../components/moviesList/moviesList';
-import Header from '../../components/header/Header';
 
 const Home = () => {
 

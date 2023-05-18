@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import "./MoviesList.css";
 import { useParams } from "react-router-dom";
 import Card from "../card/Card";
-import Header from "../header/Header";
 
 const MoviesList = () => {
   const [moviesList, setMoviesList] = useState([]);

@@ -30,9 +30,8 @@ const Login = () => {
         localStorage.setItem("authTokens", JSON.stringify(data));
         const userData = await loggedUserData(data.user_id);
         localStorage.setItem("userData", JSON.stringify(userData));
-        console.log(navigate);
         navigate("/");
-        console.log("Navigate to /");
+        window.location.reload("/")
       }
     } catch (error) {
       Swal.fire({
