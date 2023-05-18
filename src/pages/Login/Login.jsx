@@ -31,7 +31,7 @@ const Login = () => {
         const userData = await loggedUserData(data.user_id);
         localStorage.setItem("userData", JSON.stringify(userData));
         navigate("/");
-        window.location.reload("/")
+        window.location.reload()
       }
     } catch (error) {
       Swal.fire({
