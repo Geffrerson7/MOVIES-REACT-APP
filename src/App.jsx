@@ -7,6 +7,7 @@ import Login from "./pages/Login/Login";
 import { Navigate } from "react-router-dom";
 import Register from "./pages/Register/Register";
 import Header from "./components/header/Header";
+import FavoriteMovie from "./pages/favoriteMovie/FavoriteMovie";
 
 function App() {
   const authTokens = localStorage.getItem("authTokens");
@@ -27,6 +28,10 @@ function App() {
           <Route
             path="movies/:type"
             element={authTokens ? <MoviesList /> : <Navigate to="/login" />}
+          ></Route>
+          <Route
+            path="movies/favorite"
+            element={authTokens ? <FavoriteMovie /> : <Navigate to="/login" />}
           ></Route>
           <Route path="/*" element={<h1>Error Page</h1>}></Route>
           <Route path="/login" element={<Login />}></Route>
