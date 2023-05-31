@@ -9,7 +9,7 @@ const Logout = () => {
     window.location.reload()
   };
   return (
-    <button className="bg-red-500 hover:bg-red-800 text-white px-4 py-1 rounded-md ml-4 mt-2 self-center" onClick={handleLogout}>
+    <button className="bg-red-500 hover:bg-red-800 text-white px-4 py-1 rounded-md ml-8 self-center" onClick={handleLogout}>
       <span className="text-white">Logout</span>
     </button>
   );
