@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import refreshToken from "../../services/RefreshToken";
+import Swal from "sweetalert2";
 
 const MovieDetail = () => {
   const [currentMovieDetail, setMovie] = useState();

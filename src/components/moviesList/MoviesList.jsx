@@ -24,7 +24,6 @@ const MoviesList = () => {
       .then((res) => res.json())
       .then((data) => setMoviesList(data.results));
   };
-  console.log(moviesList);
   return (
     <div className="movie__list">
       <h2 className="list__title">
