@@ -1,13 +1,21 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import loggedUserData from "../../services/LoggedUserData";
 import axios from "axios";
+import Swal from "sweetalert2";
+
 
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
   const TOKEN_URL = "http://127.0.0.1:8000/user/token/";
+
+  const handleKeyPress = (event) => {
+    if (event.key === "Enter") {
+      handleSubmit(event);
+    }
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -30,8 +38,7 @@ const Login = () => {
         localStorage.setItem("authTokens", JSON.stringify(data));
         const userData = await loggedUserData(data.user_id);
         localStorage.setItem("userData", JSON.stringify(userData));
-        navigate("/");
-        window.location.reload()
+        window.location.href="/";
       }
     } catch (error) {
       Swal.fire({
@@ -69,6 +76,7 @@ const Login = () => {
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                onKeyUp={handleKeyPress}
               />
             </label>
           </div>
@@ -79,12 +87,9 @@ const Login = () => {
             >
               Login
             </button>
-            <a
-              className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800"
-              href="/register"
-            >
-              Are you register?
-            </a>
+            <Link to="/register" className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800">
+            Are you register?
+            </Link>
           </div>
         </form>
       </div>
