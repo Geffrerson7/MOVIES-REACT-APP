@@ -7,7 +7,7 @@ import Login from "./pages/Login/Login";
 import Register from "./pages/Register/Register";
 import Header from "./components/header/Header";
 import FavoriteMovie from "./pages/favoriteMovie/FavoriteMovie";
-import { ProtectedRoute } from "./components/ProtectedRoute";
+import { ProtectedRoute } from "./services/ProtectedRoute";
 
 function App() {
   const authTokens = localStorage.getItem("authTokens");
